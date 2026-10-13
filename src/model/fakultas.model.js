@@ -15,4 +15,5 @@ const fakultasSchema = new mongoose.Schema(
 ) 
 
 const FakultasModel = mongoose.model('fakultas',fakultasSchema)
-export default FakultasModel
+
+export default FakultasModel;
