@@ -1,0 +1,233 @@
+{
+  "info": {
+    "_postman_id": "f734bbe5-e4eb-4460-8077-221eb09212cb",
+    "name": "PAW2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58519451",
+    "_collection_link": "https://go.postman.co/collection/58519451-f734bbe5-e4eb-4460-8077-221eb09212cb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "FAKULTAS",
+      "item": [
+        {
+          "name": "Create Fakultas",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Manajemen\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/fakultas",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "fakultas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Fakultas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/fakultas",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "fakultas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Fakultas",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"FIKR-UPDATE\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/fakultas/6ac645bed1af1af4b8d2f90c",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "fakultas",
+                "6ac645bed1af1af4b8d2f90c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delate Fakultas",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/fakultas/6ac63eff898cb897dc2121d0",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "fakultas",
+                "6ac63eff898cb897dc2121d0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Fakultas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/fakultas/6ac64564d1af1af4b8d2f90b",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "fakultas",
+                "6ac64564d1af1af4b8d2f90b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PRODI",
+      "item": [
+        {
+          "name": "Create Fakultas",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"kode\": \"SI\",\r\n  \"nama_prodi\": \"Sistem Informasi\",\r\n  \"fakultas_id\": \"6ac64564d1af1af4b8d2f90b\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/prodi",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "prodi"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Fakultas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/prodi",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "prodi"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Prodi",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/prodi/6ace307421e87a160fb8de2b",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "prodi",
+                "6ace307421e87a160fb8de2b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Prodi",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"kode\": \"SI-UP\",\r\n  \"nama_prodi\": \"Sistem Informasi Update\",\r\n  \"fakultas_id\": \"6ac64564d1af1af4b8d2f90b\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/prodi/6ace307421e87a160fb8de2b",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "prodi",
+                "6ace307421e87a160fb8de2b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delate Prodi",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/prodi/6ace307421e87a160fb8de2b",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "prodi",
+                "6ace307421e87a160fb8de2b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
