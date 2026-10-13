@@ -6,10 +6,12 @@ import UserController from '../controllers/user.controller.js'
 import WelcomeController from '../controllers/welcome.controller.js'
 import FakultasController from '../controllers/fakultas.controller.js'
 import logMiddleware from '../middleware/log.middleware.js'
-
 const router = express.Router()
 
 router.use(logMiddleware)
+
+
+
 
 router.get('/welcome', WelcomeController.welcome)
 router.post('/users', UserController.store)

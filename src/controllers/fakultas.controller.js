@@ -42,6 +42,7 @@ class FakultasController {
 
     static async update(req, res) {
         const fakultasId = req.params.id
+        
         const result = updateFakultasSchema.safeParse(req.body)
 
         if (!result.success) {
