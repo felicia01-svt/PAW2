@@ -79,15 +79,30 @@ class ProdiController {
     }
 
     const updatedProdi = await ProdiModel.findByIdAndUpdate(
-      prodiId,
-      { kode, nama_prodi, fakultas: fakultas_id },
-      { new: true }
+      prodiId, {
+        kode : kode,
+        nama_prodi : nama_prodi,
+        fakultas: fakultas_id, 
+      },
+      { 
+        new: true,
+       }
     ).populate("fakultas");
 
-    return apiResponse({ res, status: 200, message: "Prodi berhasil diperbarui", data: updatedProdi });
+    return apiResponse({ res, status: 200, message: "Data Prodi berhasil diupdate", data: updatedProdi });
+
+
   }
 
-      static async delete(req, res) {
+
+
+
+
+
+
+
+
+    static async delete(req, res) {
     const prodiId = req.params.id;
     const prodi = await ProdiModel.findById(prodiId);
 
