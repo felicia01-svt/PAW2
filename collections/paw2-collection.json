@@ -122,7 +122,7 @@
       "name": "PRODI",
       "item": [
         {
-          "name": "Create Fakultas",
+          "name": "Create Prodi",
           "request": {
             "method": "POST",
             "header": [],
@@ -223,6 +223,33 @@
                 "prodi",
                 "6ace307421e87a160fb8de2b"
               ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "REGISTER",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "LOGIN",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
             }
           },
           "response": []

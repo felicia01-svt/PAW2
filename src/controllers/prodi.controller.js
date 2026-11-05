@@ -30,18 +30,73 @@ class ProdiController {
 
     return apiResponse({ res, status: 201, message: "Prodi berhasil di buat", data: newProdi });
   }
+
+  //Tampil
     static async index(req, res) {
-    // .populate("fakultas") mengubah ID fakultas menjadi objek data fakultas lengkap
-    const listProdi = await ProdiModel.find().populate("fakultas");
+      const {
+        search,
+        sortBy = "createdAt",
+        sort = "desc",
+        page = 1,
+        limit = 10,
+      } = req.query;
+      // Pagination
+      const currentPage = Math.max(1, parseInt(page, 10) || 1);
+      const perPage = Math.max(1, parseInt(limit, 10) || 10);
+      const skip = (currentPage - 1) * perPage;
+      // Filter
+      const filter = {};
+      if (search) {
+        filter.nama_prodi = {
+          $regex: search,
+          $options: "i",
+        };
+      }
+      // Sorting
+      const allowedSortFields = ["kode", "nama_prodi", "createdAt", "updatedAt"];
+      const sortField = allowedSortFields.includes(sortBy) ? sortBy : "createdAt";
+      const sortOption = {
+        [sortField]: sort === "desc" ? -1 : 1,
+        _id: 1,
+      };
+      // Query data + total
+      const [listProdi, totalData] = await Promise.all([
+        ProdiModel.find(filter)
+          .select({
+            _id: 1,
+            kode: 1,
+            nama_prodi: 1,
+            fakultas: 1,
+            createdAt: 1,
+            updatedAt: 1,
+          })
+          .sort(sortOption)
+          .skip(skip)
+          .limit(perPage)
+          .populate({ path: "fakultas", select: "name" }),
+        ProdiModel.countDocuments(filter),
+      ]);
+      const totalPages = Math.ceil(totalData / perPage);
+      return apiResponse({
+        res,
+        status: 200,
+        message: "List prodi",
+        data: {
+          items: listProdi,
+          pagination: {
+            totalData,
+            totalPages,
+            currentPage,
+            perPage,
+            hasNextPage: currentPage < totalPages,
+            hasPrevPage: currentPage > 1,
+          },
+        },
+      });
+    }
 
-    return apiResponse({
-      res,
-      status: 200,
-      message: "List prodi",
-      data: listProdi,
-    });
-  }
-
+  //TESTING PENGURUTAN CODE : "http://localhost:3000/api/prodi?sortBy=kode&sort=desc"
+//TESTING SELURUH PRODI DAN NAMA : http://localhost:3000/api/prodi?search=Sistem%20Informasi&sortBy=nama_prodi&sort=asc
     static async show(req, res) {
     const prodiId = req.params.id;
     const prodi = await ProdiModel.findById(prodiId).populate('fakultas');
@@ -96,22 +151,23 @@ class ProdiController {
 
 
 
-
-
-
-
-
-
     static async delete(req, res) {
     const prodiId = req.params.id;
-    const prodi = await ProdiModel.findById(prodiId);
+    const prodi = await ProdiModel.findByIdAndDelete(prodiId);
 
     if (!prodi) {
-      return apiResponse({ res, status: 404, message: "Prodi tidak ada", data: null });
+      return apiResponse({ 
+        res, 
+        status: 404, 
+        message: "Prodi tidak ada", 
+        data: null 
+      });
     }
-
-    await ProdiModel.findByIdAndDelete(prodiId);
-    return apiResponse({ res, status: 200, message: "Prodi berhasil dihapus", data: null });
+    return apiResponse({
+      res, 
+      status: 200, 
+      message: "Prodi berhasil dihapus", 
+      data: null });
   }
 }
 

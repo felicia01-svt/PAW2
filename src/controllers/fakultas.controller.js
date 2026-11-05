@@ -4,14 +4,69 @@ import { apiResponse, apiResponseValidation } from "../utils/response.js"
 
 class FakultasController {
     static async index(req, res) {
-        const listFakultas = await FakultasModel.find()
+        const { 
+            search, 
+            sortBy = "createdAt", 
+            sort = "desc", 
+            page = 1, 
+            limit = 10, 
+        } = req.query; 
+
+
+//pagination
+        const currentPage = Math.max(1, parseInt(page, 10) || 1); 
+        const perPage = Math.max(1, parseInt(limit, 10) || 10); 
+        const skip = (currentPage - 1) * perPage; 
+
+        //filter
+        const filter = {}
+        if (search) {
+            filter.name = {
+                $regex: search,
+                $options : "i"
+            }
+        }
+
+        //sorting
+        const allowedSortFields = ["name", "createdAt", "updatedAt"]; 
+        const sortField = allowedSortFields.includes(sortBy) ? sortBy : "createdAt"; 
+
+        const sortOption = {
+            [sortField]: sort === 'desc' ? -1 : 1,
+            _id: 1,
+        };
+
+        //query data+total
+        const [listFakultas, totalData] = await Promise.all([
+            FakultasModel.find(filter)
+            .select({
+                _id: 1,
+                name: 1,
+                createdAt: 1,
+                updatedAt: 1,
+            })
+            .sort(sortOption)
+            .skip(skip)
+            .limit(perPage),
+            FakultasModel.countDocuments(filter),
+        ]);
+        const totalPages = Math.ceil(totalData / perPage);
         return apiResponse({
             res,
             status: 200,
-            message: "List Fakultas",
-            data: listFakultas,
-        })
-    }
+            data: {
+            items: listFakultas,
+            pagination: {
+                totalData,
+                totalPages,
+                currentPage,
+                perPage,
+                hasNextPage: currentPage < totalPages,
+                hasPrevPage: currentPage > 1,
+            },
+            },
+        });
+        }
 
     static async show(req, res) {
         const fakultasId = req.params.id
